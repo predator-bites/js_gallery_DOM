@@ -10,8 +10,6 @@ if (
   typeof largeImg !== 'undefined'
 ) {
   ulImgs.addEventListener('click', (evnt) => {
-    evnt.preventDefault();
-
     if (evnt.target.localName !== 'img' && evnt.target.localName !== 'a') {
       return;
     }
@@ -20,10 +18,14 @@ if (
       const linkToelem = evnt.target.closest('a');
 
       if (linkToelem) {
+        evnt.preventDefault();
         largeImg.setAttribute('src', linkToelem.href);
       }
     } else {
-      largeImg.setAttribute('src', evnt.target.href);
+      if (evnt.target.href) {
+        evnt.preventDefault();
+        largeImg.setAttribute('src', evnt.target.href);
+      }
     }
   });
 }
